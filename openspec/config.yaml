@@ -1,0 +1,32 @@
+schema: spec-driven
+
+context: |
+  # TMS-TUS EEG 信号分析算法库（C++17）
+
+  面向 TMS-TUS 神经调控场景的 EEG/脑电信号处理算法静态库（CMake target: eeg_alg）。
+
+  ## 技术栈与依赖
+  - C++17，CMake（>= 3.14）
+  - Eigen3（头文件库）、FFTW3（双精度）、OpenMP
+  - GoogleTest 单元测试（tests/test_algorithms.cpp）
+
+  ## 目录结构
+  - include/  算法声明 + DSP 公共头 dsp_utils.h
+  - src/      实现（dsp_utils.cpp + 4 个算法 .cpp + demo test.cpp）
+  - struct/   输出 SoA 结构体与特征枚举
+  - tests/    GoogleTest 单元测试
+  - openspec/ 规范（specs/）与变更（changes/）管理
+
+  ## 能力（capability，对应 openspec/specs/）
+  - dsp-foundation：Hann 窗、Welch PSD、频带梯形积分功率、FFT 带通滤波、Hilbert/解析信号、APF 重心、线程安全的 FFTW plan 缓存（namespace dsp）
+  - absolute-power：14 特征（13 频带 + APF），compute（全局 APF）/ compute_indiv（逐通道 CoG APF）（namespace absolute_power）
+  - sham-power：11 随机频带 + 2 工频频带 + 随机起点回填，共 14 特征（namespace sham_power）
+  - phase-locking：跨试次相位一致性 ITPC，8 频带（namespace phase_locking）
+  - phase-amplitude-coupling：Tort 调制指数 MI，8 个耦合模式（4 相位带 × 2 幅度带）（namespace pac_asymmetry）
+
+  ## 约定
+  - 输出统一为 SoA（Structure of Arrays）：features[feature][channel]
+  - OpenMP 并行阈值 kOmpMinWork = 131072，低于阈值串行执行
+  - FFTW plan 通过全局缓存 + 互斥锁保证线程安全；进入并行区前必须 warmup_r2c / warmup_c2c_backward
+  - 输出访问 at()/get_apf() 无越界检查，调用方保证索引合法
+  - 信号矩阵形状约定为（采样点 × 通道）

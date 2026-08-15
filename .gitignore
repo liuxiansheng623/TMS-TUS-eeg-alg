@@ -1,0 +1,48 @@
+# ── 构建产物目录 ──
+build/
+build_static/
+build_windows/
+build_wsl/
+artifacts/
+CMakeFiles/
+Testing/
+
+# ── CMake 生成文件 ──
+CMakeCache.txt
+compile_commands.json
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+
+# ── 编译中间文件 / 二进制 ──
+*.obj
+*.o
+*.a
+*.so
+*.so.*
+*.dll
+*.exe
+*.lib
+*.dylib
+*.d
+
+# ── .NET / C# 构建产物 ──
+bin/
+obj/
+*.pdb
+*.nupkg
+*.snupkg
+
+# ── IDE / 编辑器 ──
+.vscode/
+.idea/
+*.user
+
+# ── AI 工具配置（本仓库不提交） ──
+.agents/
+.claude/
+.codex/
+
+# ── 系统 / 杂项 ──
+.DS_Store
+Thumbs.db

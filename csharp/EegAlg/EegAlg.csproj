@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>EegAlg</RootNamespace>
+    <PackageId>EegAlg</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>TMS-TUS</Authors>
+    <Description>EEG signal analysis algorithms (absolute power, sham power, phase locking, PAC) with a native backend, packaged for C#.</Description>
+    <PackageTags>EEG;TMS;signal-processing;native</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="runtimes/win-x64/native/*.dll" Pack="true" PackagePath="runtimes/win-x64/native/" />
+    <None Include="buildTransitive/*.targets" Pack="true" PackagePath="buildTransitive/" />
+    <None Include="../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+</Project>
